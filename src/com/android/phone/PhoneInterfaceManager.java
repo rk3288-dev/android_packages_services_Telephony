@@ -15,7 +15,7 @@
  */
 
 package com.android.phone;
-
+import android.os.SystemProperties;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.content.ComponentName;
@@ -2011,17 +2011,28 @@ public class PhoneInterfaceManager extends ITelephony.Stub {
     }
 
     private String getIccId(int subId) {
+/*
         UiccCard card = getPhone(subId).getUiccCard();
         if (card == null) {
             loge("getIccId: No UICC");
             return null;
         }
-        String iccId = card.getIccId();
+*/
+        //String iccId = card.getIccId();
+         String iccId ;
+ /*
         if (TextUtils.isEmpty(iccId)) {
             loge("getIccId: ICC ID is null or empty.");
             return null;
         }
-        return iccId;
+*/
+        String sim_state = SystemProperties.get("gsm.sim.state");
+         if(sim_state.equals("READY")){
+          iccId = "89860002091070314495";
+          return iccId;
+         }else
+         return null;
+       
     }
 
     @Override
